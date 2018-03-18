@@ -115,28 +115,31 @@
 
 <div id="app">
 	<form method="post" action="/">
-		<label for="email">Email</label> <input type="email" :value="email" id="email">
+		<label for="email">Email</label> <input type="email" v-model.lazy="emailAddress" id="email">
 		<fieldset>
 			<legend>Interests</legend>
 			<div>
-				<input type="checkbox" value="Running"> Running
+				<input type="checkbox" value="Running" v-model="whatyouSelectAsInterest" > Running
 			</div>
 			<div>
-				<input type="checkbox" value="Cycling"> Cycling
+				<input type="checkbox" value="Cycling" v-model="whatyouSelectAsInterest" > Cycling
 			</div>
 			<div>
-				<input type="checkbox" value="Swimming"> Swimming
+				<input type="checkbox" value="Swimming" v-model="whatyouSelectAsInterest" > Swimming
 			</div>
 		</fieldset>
 		<input type="submit" value="Subscribe">
-	</form>
+        <!--<p> this message is here to inform you about what is typed under {{emailAddress}}.</p>-->
+	<p> Dude: here is what you selected: {{whatyouSelectAsInterest.join(", ")}} </p>
+    </form>
 </div>
 
 <script>
 	var vm = new Vue({
 	   el: '#app',
 	   data: {
-		   email: 'mike@example.com'
+           emailAddress: '',
+           whatyouSelectAsInterest: ["Running"]
 	   }
 	});
 </script>
