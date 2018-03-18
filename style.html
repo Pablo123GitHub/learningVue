@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+
+<script src="https://unpkg.com/vue@2.5.16/dist/vue.js"></script>
+
+<div id="app">
+    <input type="number" v-model="myFontSize">
+<div :style="{border: 'solid 2px black', 'margin-bottom': '30px', fontSize: myFontSize + 'px' } ">
+    Hey Testing styling with Components  @@ yayaya
+</div>
+
+    <div :style="fancyDiv">
+        Using the fancyDiv styuling now
+    </div>
+
+    <div :style="[fancyDiv, fancierDiv]"
+         @mouseover="fancierDiv.border = 'dashed 1px blue'"
+         @mouseout="fancierDiv.border = 'solid 1px black' "
+    >
+
+    this is the last one with both fancyDiv and fancierDiv both configured under the data object in new Vue
+    </div>
+
+
+<script>
+    new Vue({
+       el: '#app',
+       data: {
+           myFontSize: 24,
+           fancyDiv: {
+               backgroundColor: 'yellow',
+               borderRadius: '10px',
+               padding: '10px',
+               marginTop: '30px'
+           },
+           fancierDiv: {
+               fontFamily: 'Arial, Helvetica',
+               border : 'solid 1px black',
+               padding: '30px'
+           }
+       }
+    });
+</script>
