@@ -118,8 +118,8 @@
 		<label for="email">Email</label> <input type="email" v-model.lazy="emailAddress" id="email">
 		<fieldset>
 			<legend>Interests</legend>
-			<div v-for="itemInListofSports in listOfSportsArray">
-				<input type="checkbox"  v-model="whatyouSelectAsInterest" :value="itemInListofSports" > {{itemInListofSports}}
+			<div v-for="(itemInListofSports, indexHere) in listOfSportsArray">
+				<input type="checkbox"  v-model="whatyouSelectAsInterest" :value="itemInListofSports.id" > {{indexHere +1}}. {{itemInListofSports.name}}
 			</div>
 
 		</fieldset>
@@ -129,6 +129,10 @@
         <p v-if="whatyouSelectAsInterest.length === 3"> This message will be displayed if all the checkboxes above are checked !!!</p>
         <p v-else-if="whatyouSelectAsInterest.length > 0" > Dude: here is what you selected: {{whatyouSelectAsInterest.join(", ")}} </p>
         <p v-else> This paragraph will show up if none of the checkboxes above is selected </p>
+        <div v-for="(value, key, index) in addressTest">
+           {{index +1}} {{key}}: {{value}}
+        </div>
+
 
     </form>
 </div>
@@ -138,24 +142,39 @@
 	   el: '#app',
 	   data: {
            emailAddress: '',
-           listOfSportsArray: ['Running', 'Cycling', 'Ping-Pong'],
-           whatyouSelectAsInterest: []
+           listOfSportsArray: [        {
+               id:1,
+               name: 'Running'
+
+           },
+               {
+                   id: 2,
+                   name: 'Ping-Pong'
+               },
+               {
+                   id:3,
+                   name: 'Sumo fighting'
+               }
+           ],
+           whatyouSelectAsInterest: [
+
+           ],
+           addressTest: {
+               street: '123 nowhere street',
+               city: 'New York'
+           }
 	   }
 	});
 </script>
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+
+
+
+
+
+
+
+
         
         </div>
     </div>
