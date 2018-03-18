@@ -118,19 +118,18 @@
 		<label for="email">Email</label> <input type="email" v-model.lazy="emailAddress" id="email">
 		<fieldset>
 			<legend>Interests</legend>
-			<div>
-				<input type="checkbox" value="Running" v-model="whatyouSelectAsInterest" > Running
+			<div v-for="itemInListofSports in listOfSportsArray">
+				<input type="checkbox"  v-model="whatyouSelectAsInterest" :value="itemInListofSports" > {{itemInListofSports}}
 			</div>
-			<div>
-				<input type="checkbox" value="Cycling" v-model="whatyouSelectAsInterest" > Cycling
-			</div>
-			<div>
-				<input type="checkbox" value="Swimming" v-model="whatyouSelectAsInterest" > Swimming
-			</div>
+
 		</fieldset>
 		<input type="submit" value="Subscribe">
         <!--<p> this message is here to inform you about what is typed under {{emailAddress}}.</p>-->
-	<p> Dude: here is what you selected: {{whatyouSelectAsInterest.join(", ")}} </p>
+	<!--<p v-show="whatyouSelectAsInterest.length > 0" > Dude: here is what you selected: {{whatyouSelectAsInterest.join(", ")}} </p>-->
+        <p v-if="whatyouSelectAsInterest.length === 3"> This message will be displayed if all the checkboxes above are checked !!!</p>
+        <p v-else-if="whatyouSelectAsInterest.length > 0" > Dude: here is what you selected: {{whatyouSelectAsInterest.join(", ")}} </p>
+        <p v-else> This paragraph will show up if none of the checkboxes above is selected </p>
+
     </form>
 </div>
 
@@ -139,7 +138,8 @@
 	   el: '#app',
 	   data: {
            emailAddress: '',
-           whatyouSelectAsInterest: ["Running"]
+           listOfSportsArray: ['Running', 'Cycling', 'Ping-Pong'],
+           whatyouSelectAsInterest: []
 	   }
 	});
 </script>
