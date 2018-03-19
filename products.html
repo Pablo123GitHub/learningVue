@@ -114,7 +114,11 @@
             <script type="text/javascript" src="https://unpkg.com/vue@2.1.10/dist/vue.js"></script>
 
             <div id="app">
-                <product-list :products="theProducts" the-title="Shop our award-winning product line"></product-list>
+
+                <button v-if="listType == 'product-list'" @click="listType = 'product-list-simple'"> Show less</button>
+                <button v-else @click="listType = 'product-list'"> Show MORE</button>
+                <component :is="listType" :products="theProducts" the-title="Shop our award-winning product line"></component>
+
             </div>
 
             <script>
@@ -122,8 +126,20 @@
                     template: '<div class="product-list">\
                     <h2>{{theTitle}}</h2>\
                     <ul>\
-                        <product-list-item v-for="product in products" :product="product">\
-                        </product-list-item>\
+                        <component is="product-list-item" v-for="product in products" :product="product">\
+                        </component>\
+                    </ul>\
+                </div>',
+                    props: ['theTitle', 'products']
+                });
+
+                Vue.component('product-list-simple', {
+                    template: '<div class="product-list">\
+                    <h2>{{theTitle}}</h2>\
+                    <ul>\
+                        <li v-for="product in products">\
+                        <img :src="product.image" class="small"> {{product.name}}\
+                        </li>\
                     </ul>\
                 </div>',
                     props: ['theTitle', 'products']
@@ -142,7 +158,8 @@
                 var vm = new Vue({
                     el: '#app',
                     data: {
-                        theProducts: []
+                        theProducts: [],
+                        listType: 'product-list'
                     },
                     created: function() {
                         $.getJSON('https://hplussport.com/api/products')
@@ -167,6 +184,9 @@
                 .product-list li {
                     margin-bottom: 40px;
                     clear: both;
+                }
+                .product-list img.small {
+                    width: 100px;
                 }
             </style>
 
